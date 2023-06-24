@@ -12,10 +12,12 @@
 # Слишком громоздкий вариант поля, но я его полюбила, поэтому оставлю для истории
 
 
+area = [['_'] * 3 for _ in range(3)]
+
 def battle_area(a):
     print(' ', 'a', 'b', 'c')
-    for i in range(len(area)):
-        print(str(i+1), *area[i])
+    for i in range(len(a)):
+        print(str(i+1), *a[i])
 
 def users_move(a):
     while True:
@@ -33,7 +35,7 @@ def users_move(a):
             ve = 1                # Но другие варианты были ещё хуже
         else: ve = 2
         ho = (int(move_it[1]) - 1)
-        if area[ho][ve] != '_':
+        if a[ho][ve] != '_':
             print("Вы уже сюда ходили")
             continue
         break
@@ -146,15 +148,17 @@ def fight(a):
             user = "o"
             print(f'Ходит {user}')
         ho, ve = users_move(area)
-        area[ho][ve] = user
+        a[ho][ve] = user
         if epic_wim(a, user):
             battle_area(a)
             print(f"Победил {user}")
             battle_area(a)
+        battle_area(a)
         count += 1
     else:
         battle_area(a)
         print('Ничья')
+
 
 def bot_fight(a):
     battle_area(a)
@@ -163,21 +167,24 @@ def bot_fight(a):
         if count % 2 == 0:
             user = "x"
             print(f'Ходит игрок {user}')
-            ho, ve = users_move(area)
-            area[ho][ve] = user
+            ho, ve = users_move(a)
+            a[ho][ve] = user
         else:
             user = "o"
             print(f'Ходит бот {user}')
             ho, ve = bot_move(a)
-            area[ho][ve] = user
+            a[ho][ve] = user
         if epic_wim(a, user):
             battle_area(a)
             print(f"Победил {user}")
+            begin(a)
         battle_area(a)
         count += 1
     else:
         print('Ничья')
         battle_area(a)
+
+
 
 def big_fatality(a):
     print("Добро пожаловать в 'Крестики-нолики'!")
@@ -193,10 +200,11 @@ def big_fatality(a):
     else:
         bot_fight(a)
 
-area = [['_']*3 for _ in range(3)]
+def begin(a):
+    a = [['_']*3 for _ in range(3)]
+    big_fatality(a)
 
-big_fatality(area)
-
+begin(area)
 
 
 
