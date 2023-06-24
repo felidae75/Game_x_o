@@ -96,8 +96,9 @@ def bot_move(a):
                 ve, ho = i[0], i[1]
                 if a[ve][ho] == '_':
                     break
-            print(coord)
-            print(ve, ho)
+            # print(coord)
+            # print(ve, ho)
+            # Это было нужно для проверки
         break
     if ho == 0:
         ho_letter = 'a'
