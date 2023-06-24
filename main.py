@@ -55,6 +55,7 @@ def bot_move(a):
         #         return True
         #     else:
         #         return False
+        # Хотелось, чтобы он шёл к победе и думал, прежде всего, о ноликах,, но не получилось
         def bot_want_win(l1, l2, l3):
             if (l1 == 'o' and l2 == 'o' and l3 == '_') or \
                     (l1 == 'o' and l2 == '_' and l3 == 'o') or \
@@ -100,7 +101,7 @@ def bot_move(a):
                     break
             # print(coord)
             # print(ve, ho)
-            # Это было нужно для проверки
+            # Это было нужно для проверки метода научного тыка
         break
     if ho == 0:
         ho_letter = 'a'
@@ -159,7 +160,6 @@ def fight(a):
         battle_area(a)
         print('Ничья')
 
-
 def bot_fight(a):
     battle_area(a)
     count = 0
@@ -183,8 +183,6 @@ def bot_fight(a):
     else:
         print('Ничья')
         battle_area(a)
-
-
 
 def big_fatality(a):
     print("Добро пожаловать в 'Крестики-нолики'!")
