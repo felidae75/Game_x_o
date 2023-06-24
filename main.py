@@ -140,62 +140,73 @@ def epic_wim(a, user):
 
 def fight(a):
     battle_area(a)
+    print('')
     count = 0
     while count < 9:
         if count % 2 == 0:
             user = "x"
-            print(f'Ходит {user}')
+            print(f'Ходит {user}\n')
         else:
             user = "o"
-            print(f'Ходит {user}')
+            print(f'Ходит {user}\n')
         ho, ve = users_move(area)
         a[ho][ve] = user
         if epic_wim(a, user):
             battle_area(a)
-            print(f"Победил {user}")
+            print('')
+            print(f'Победил {user}\n')
             begin(a)
+        print('')
         battle_area(a)
+        print('')
         count += 1
     else:
         battle_area(a)
-        print('Ничья')
+        print('')
+        print('Ничья\n')
         begin(a)
 
 def bot_fight(a):
     battle_area(a)
+    print('')
     count = 0
     while count < 9:
         if count % 2 == 0:
             user = "x"
-            print(f'Ходит игрок {user}')
+            print(f'Ходит игрок {user}\n')
             ho, ve = users_move(a)
             a[ho][ve] = user
         else:
             user = "o"
-            print(f'Ходит бот {user}')
+            print(f'Ходит бот "Странный Нолик" {user}\n')
             ho, ve = bot_move(a)
             a[ho][ve] = user
         if epic_wim(a, user):
             battle_area(a)
-            print(f"Победил {user}")
+            print('')
+            print(f'Победил {user}\n')
             begin(a)
+        print('')
         battle_area(a)
+        print('')
         count += 1
     else:
-        print('Ничья')
+        print('')
+        print('Ничья\n')
         battle_area(a)
         begin(a)
 
 def big_fatality(a):
-    print("Добро пожаловать в 'Крестики-нолики'!")
+    print("Добро пожаловать в 'Крестики-нолики'!\n")
     while True:
-        choice = input('Если хотите поиграть с ботом, введите "1", если хотите поиграть самостоятельно, нажмите "0": ')
+        choice = input('Если хотите поиграть с ботом, введите "1", если хотите поиграть самостоятельно, нажмите "0": \n')
         if choice not in ('0', '1'):
-            print('Похоже, вы ввели что-то не то')
+            print('Похоже, вы ввели что-то не то\n')
             continue
         break
     if choice == '0':
-        print('Удачноё игры!')
+        print('')
+        print('Удачноё игры\n')
         fight(a)
     else:
         bot_fight(a)
