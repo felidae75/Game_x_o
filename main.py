@@ -150,8 +150,6 @@ def fight(a):
             battle_area(a)
             print(f"Победил {user}")
             battle_area(a)
-
-            break
         count += 1
     else:
         battle_area(a)
@@ -174,7 +172,6 @@ def bot_fight(a):
         if epic_wim(a, user):
             battle_area(a)
             print(f"Победил {user}")
-            break
         battle_area(a)
         count += 1
     else:
