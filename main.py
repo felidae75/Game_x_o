@@ -1,17 +1,16 @@
-# M = [
+# area = [
 #     [0, 1, 2, 3],
 #     [1, "_", "_", "_"],
 #     [2, "_", "_", "_"],
 #     [3, "_", "_", "_"]
 # ]
-#
+
 # for i in range(4):
 #     for j in range(4):
 #         print(M[i][j], end=" ")
 #     print()
 # Слишком громоздкий вариант поля, но я его полюбила, поэтому оставлю для истории
 
-area = [['_']*3 for _ in range(3)]
 
 def battle_area(a):
     print(' ', 'a', 'b', 'c')
@@ -43,14 +42,24 @@ def users_move(a):
 def bot_move(a):
     import random
     def bot_win(a):
+        # def bot_want_win(l1, l2, l3):
+        #     if l1 == 'o' and l2 == 'o' and l3 == '_' or \
+        #             l1 == 'o' and l2 == '_' and l3 == 'o' or \
+        #             l1 == '_' and l2 == 'o' and l3 == 'o':
+        #         return True
+        #     elif l1 == 'x' and l2 == 'x' and l3 == '_' or \
+        #             l1 == 'x' and l2 == '_' and l3 == 'x' or \
+        #             l1 == '_' and l2 == 'x' and l3 == 'x':
+        #         return True
+        #     else:
+        #         return False
         def bot_want_win(l1, l2, l3):
-            if l1 == 'o' and l2 == 'o' and l3 == '_' or \
-                    l1 == 'o' and l2 == '_' and l3 == 'o' or \
-                l1 == '_' and l2 == 'o' and l3 == 'o':
-                return True
-            elif l1 == 'x' and l2 == 'x' and l3 == '_' or \
-                    l1 == 'x' and l2 == '_' and l3 == 'x' or \
-                l1 == '_' and l2 == 'x' and l3 == 'x':
+            if (l1 == 'o' and l2 == 'o' and l3 == '_') or \
+                    (l1 == 'o' and l2 == '_' and l3 == 'o') or \
+                (l1 == '_' and l2 == 'o' and l3 == 'o') or \
+                    (l1 == 'x' and l2 == 'x' and l3 == '_') or \
+                (l1 == 'x' and l2 == '_' and l3 == 'x') or \
+                    (l1 == '_' and l2 == 'x' and l3 == 'x'):
                 return True
             else:
                 return False
@@ -60,17 +69,17 @@ def bot_move(a):
                 f2 = [n, 1]
                 f3 = [n, 2]
                 return f1, f2, f3
-            if bot_want_win(a[0][n], a[1][n], a[2][n]):
+            elif bot_want_win(a[0][n], a[1][n], a[2][n]):
                 f1 = [0, n]
                 f2 = [1, n]
                 f3 = [2, n]
                 return f1, f2, f3
-            if bot_want_win(a[0][0], a[1][1], a[2][2]):
+            elif bot_want_win(a[0][0], a[1][1], a[2][2]):
                 f1 = [0, 0]
                 f2 = [1, 1]
                 f3 = [2, 2]
                 return f1, f2, f3
-            if bot_want_win(a[2][0], a[1][1], a[0][2]):
+            elif bot_want_win(a[2][0], a[1][1], a[0][2]):
                 f1 = [2, 0]
                 f2 = [1, 1]
                 f3 = [0, 2]
@@ -78,15 +87,17 @@ def bot_move(a):
         return False
     while True:
         ve, ho = random.randrange(0, 3), random.randrange(0, 3)
-        if area[ve][ho] != '_':
+        if a[ve][ho] != '_':
             continue
         if bot_win(a):
             f1, f2, f3 = bot_win(a)
             coord = [f1, f2, f3]
             for i in coord:           # Чтобы оно не просто тыкало в клетки, а стремилось к победе
                 ve, ho = i[0], i[1]
-                if area[ve][ho] == '_':
+                if a[ve][ho] == '_':
                     break
+            print(coord)
+            print(ve, ho)
         break
     if ho == 0:
         ho_letter = 'a'
@@ -95,7 +106,6 @@ def bot_move(a):
     else:
         ho_letter = 'c'
     print("Бот выбрал координаты:", ho_letter, ve + 1)
-
     return ve, ho
 
 def epic_wim(a, user):
@@ -125,7 +135,7 @@ def epic_wim(a, user):
     return False
 
 def fight(a):
-    battle_area(area)
+    battle_area(a)
     count = 0
     while count < 9:
         if count % 2 == 0:
@@ -136,18 +146,19 @@ def fight(a):
             print(f'Ходит {user}')
         ho, ve = users_move(area)
         area[ho][ve] = user
-        if epic_wim(area, user):
-            battle_area(area)
+        if epic_wim(a, user):
+            battle_area(a)
             print(f"Победил {user}")
+            battle_area(a)
+
             break
-        battle_area(area)
         count += 1
     else:
-        battle_area(area)
+        battle_area(a)
         print('Ничья')
 
 def bot_fight(a):
-    battle_area(area)
+    battle_area(a)
     count = 0
     while count < 9:
         if count % 2 == 0:
@@ -158,30 +169,35 @@ def bot_fight(a):
         else:
             user = "o"
             print(f'Ходит бот {user}')
-            ho, ve = bot_move(area)
+            ho, ve = bot_move(a)
             area[ho][ve] = user
-        if epic_wim(area, user):
-            battle_area(area)
+        if epic_wim(a, user):
+            battle_area(a)
             print(f"Победил {user}")
             break
-        battle_area(area)
+        battle_area(a)
         count += 1
     else:
         print('Ничья')
-        battle_area(area)
+        battle_area(a)
 
-print("Добро пожаловать в 'Крестики-нолики'!")
-while True:
-    choice = input('Если хотите поиграть с ботом, введите "1", если хотите поиграть самостоятельно, нажмите "0": ')
-    if choice not in ('0', '1'):
-        print('Похоже, вы ввели что-то не то')
-        continue
-    break
-if choice == '0':
-    print('Удачноё игры!')
-    fight(area)
-else:
-    bot_fight(area)
+def big_fatality(a):
+    print("Добро пожаловать в 'Крестики-нолики'!")
+    while True:
+        choice = input('Если хотите поиграть с ботом, введите "1", если хотите поиграть самостоятельно, нажмите "0": ')
+        if choice not in ('0', '1'):
+            print('Похоже, вы ввели что-то не то')
+            continue
+        break
+    if choice == '0':
+        print('Удачноё игры!')
+        fight(a)
+    else:
+        bot_fight(a)
+
+area = [['_']*3 for _ in range(3)]
+
+big_fatality(area)
 
 
 
