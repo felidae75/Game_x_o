@@ -153,12 +153,13 @@ def fight(a):
         if epic_wim(a, user):
             battle_area(a)
             print(f"Победил {user}")
-            battle_area(a)
+            begin(a)
         battle_area(a)
         count += 1
     else:
         battle_area(a)
         print('Ничья')
+        begin(a)
 
 def bot_fight(a):
     battle_area(a)
@@ -183,6 +184,7 @@ def bot_fight(a):
     else:
         print('Ничья')
         battle_area(a)
+        begin(a)
 
 def big_fatality(a):
     print("Добро пожаловать в 'Крестики-нолики'!")
